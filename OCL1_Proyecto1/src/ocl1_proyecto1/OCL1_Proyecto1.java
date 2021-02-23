@@ -16,6 +16,8 @@ public class OCL1_Proyecto1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Interface ventana = new Interface();
+        ventana.setVisible(true);
     }
     
 }
