@@ -192,7 +192,6 @@ public class Interface extends javax.swing.JFrame {
         fileChooser.setDialogTitle("Specify a file to save");
         fileChooser.showSaveDialog(null);
 
-        //System.out.println(path);
         try {
             path = fileChooser.getSelectedFile().getAbsolutePath();
             File f = fileChooser.getSelectedFile();

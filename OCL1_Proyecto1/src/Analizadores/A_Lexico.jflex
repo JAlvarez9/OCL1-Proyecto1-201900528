@@ -4,6 +4,7 @@
 
 //------> Paquetes,importaciones
 package Analizadores;
+import Errores.ErroresL;
 import java_cup.runtime.*;
 import javax.swing.JOptionPane;
 
@@ -30,11 +31,14 @@ import javax.swing.JOptionPane;
 //------> Expresiones Regulares
 digito = [0-9]
 letra = [a-zA-ZÑñ]
-especiales = [!-/] | [:-@] | [\\-`] | [{-}]
+esp = [!-/] | [:-@] | [\\-`] | [{-}]
+cadena = [\"][^\"\n]+[\"]
+id = {Letra}({Letra}|{ digito }|_)*
 
 
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
+
 
 comentariosimple    = "//" {InputCharacter}* {LineTerminator}?
 
@@ -48,24 +52,38 @@ comentariosimple    = "//" {InputCharacter}* {LineTerminator}?
 
 //-----> Simbolos
 
+"."         { System.out.println("Reconocio "+yytext()+" conca"); return new Symbol(Simbolos.conca, yycolumn, yyline, yytext()); }
+"|"         { System.out.println("Reconocio "+yytext()+" or"); return new Symbol(Simbolos.or, yycolumn, yyline, yytext()); }
+"*"         { System.out.println("Reconocio "+yytext()+" cierre"); return new Symbol(Simbolos.cierre, yycolumn, yyline, yytext()); }
 "+"         { System.out.println("Reconocio "+yytext()+" mas"); return new Symbol(Simbolos.mas, yycolumn, yyline, yytext()); }
-"-"         { System.out.println("Reconocio "+yytext()+" menos"); return new Symbol(Simbolos.menos, yycolumn, yyline, yytext()); }
-"*"         { System.out.println("Reconocio "+yytext()+" por"); return new Symbol(Simbolos.por, yycolumn, yyline, yytext()); }
-"/"         { System.out.println("Reconocio "+yytext()+" div"); return new Symbol(Simbolos.div, yycolumn, yyline, yytext()); }
-"("         { System.out.println("Reconocio "+yytext()+" para"); return new Symbol(Simbolos.para, yycolumn, yyline, yytext()); }
-")"         { System.out.println("Reconocio "+yytext()+" parc"); return new Symbol(Simbolos.parc, yycolumn, yyline, yytext()); }
+"{"         { System.out.println("Reconocio "+yytext()+" corchea"); return new Symbol(Simbolos.corchea, yycolumn, yyline, yytext()); }
+"}"         { System.out.println("Reconocio "+yytext()+" corchec"); return new Symbol(Simbolos.corchec, yycolumn, yyline, yytext()); }
+"-"         { System.out.println("Reconocio "+yytext()+" guion"); return new Symbol(Simbolos.guion, yycolumn, yyline, yytext()); }
+">"         { System.out.println("Reconocio "+yytext()+" mayork"); return new Symbol(Simbolos.mayork, yycolumn, yyline, yytext()); }
+"<"         { System.out.println("Reconocio "+yytext()+" menork"); return new Symbol(Simbolos.menork, yycolumn, yyline, yytext()); }
+"%"         { System.out.println("Reconocio "+yytext()+" prct"); return new Symbol(Simbolos.prct, yycolumn, yyline, yytext()); }
+":"         { System.out.println("Reconocio "+yytext()+" dspts"); return new Symbol(Simbolos.dspts, yycolumn, yyline, yytext()); }
+";"         { System.out.println("Reconocio "+yytext()+" ptcoma"); return new Symbol(Simbolos.ptcoma, yycolumn, yyline, yytext()); }
+"~"         { System.out.println("Reconocio "+yytext()+" curv"); return new Symbol(Simbolos.curv, yycolumn, yyline, yytext()); }
+"?"         { System.out.println("Reconocio "+yytext()+" inte"); return new Symbol(Simbolos.inte, yycolumn, yyline, yytext()); }
+"\\n"         { System.out.println("Reconocio "+yytext()+" sltln"); return new Symbol(Simbolos.sltln, yycolumn, yyline, yytext()); }
+"\\'"         { System.out.println("Reconocio "+yytext()+" cmllsmpl"); return new Symbol(Simbolos.cmllsmpl, yycolumn, yyline, yytext()); }
+"\\""         { System.out.println("Reconocio "+yytext()+" cmlldbl"); return new Symbol(Simbolos.cmlldbl, yycolumn, yyline, yytext()); }
 
 //-----> Palabras reservadas
 
+"CONJ"         { System.out.println("Reconocio "+yytext()+" conj"); return new Symbol(Simbolos.conj, yycolumn, yyline, yytext()); }"
 
 //-------> Simbolos ER
 {digito}    { System.out.println("Reconocio "+yytext()+" digito"); return new Symbol(Simbolos.digito, yycolumn, yyline, yytext()); }
+{letra}    { System.out.println("Reconocio "+yytext()+" letra"); return new Symbol(Simbolos.letra, yycolumn, yyline, yytext()); }
+{esp}    { System.out.println("Reconocio "+yytext()+" esp"); return new Symbol(Simbolos.esp, yycolumn, yyline, yytext()); }
 
 //------> Espacios
 {comentariosimple}      {System.out.println("Comentario: "+yytext()); }
 [ \t\r\n\f]             {/* Espacios en blanco, se ignoran */}
 
 //------> Errores Lexicos
-.                       { System.out.println("Error Lexico"+yytext()+" Linea "+yyline+" Columna "+yycolumn);}
+.                       { ErroresL err = new ErroresL("Lexico",yytext(), yyline, yycolumn); err.SendError();}
 
 

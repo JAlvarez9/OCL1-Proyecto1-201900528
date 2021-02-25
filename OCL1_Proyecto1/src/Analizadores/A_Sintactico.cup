@@ -1,1 +1,68 @@
 
+/*--------------- 1ra Area: Codigo de Usuario -----------------------*/
+//-------> importaciones, paquetes
+package Analizadores;
+package Objetos;
+import java_cup.runtime.Symbol;
+
+//------> Codigo para el parser,variables, metodos
+parser code{:
+        public String resultado = "";
+:}
+
+//------> Codigo para las acciones gramaticales
+action code
+{:  :}
+
+/*--------------- 2da Area: Declaraciones -----------------------*/
+
+//------> declaracion de terminales 
+
+terminal digito, 
+         letra,
+         esp, conca, or, cierre, mas, corchea, corchec, guion, mayork, menork, prct, dspts, ptcoma,
+        curv, inte, conj, cadena, sltln,cmllsmpl,cmlldbl, id;
+
+//------> declaracion de no terminales
+non terminal String INICIO, 
+                    E,
+                    ER;
+
+//------> precedencia de menor a mayor
+precedence right conca;
+precedence right or;
+precedence right cierre, mas, inte;
+
+
+
+start with INICIO;
+
+/*--------------- 3ra Area: Reglas Semanticas -----------------------*/
+
+INICIO::= E:a    {: :} 
+       ;
+
+E ::= conca E:a E:b         {: :}
+    | or E:a E:b            {: :}
+    | cierre E              {: :}
+    | mas E                 {: :}
+    | inte E                {: :}
+    | digito                {: :}
+    | corchea id corchec    {: :}
+    | sltln:a               {: :}
+    | sltln                 {: :}
+    | cmllsmpl              {: :}
+    | cmlldbl               {: :}
+    ; 
+ER ::= id guion mayork E puntoycoma {:  :}
+
+
+ 
+
+
+
+
+
+
+
+
