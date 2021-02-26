@@ -13,10 +13,10 @@ public class ErroresL {
     
     String tipo;
     String caracter;
-    String fila;
-    String columna;
+    int fila;
+    int columna;
     
-    public ErroresL(String tipo, String caracter,String fila,String columna) {
+    public ErroresL(String tipo, String caracter,int fila,int columna) {
         this.tipo = tipo;
         this.caracter = caracter;
         this.fila = fila;

@@ -2,12 +2,18 @@
 /*--------------- 1ra Area: Codigo de Usuario -----------------------*/
 //-------> importaciones, paquetes
 package Analizadores;
-package Objetos;
+import Objetos.NodeArbol;
 import java_cup.runtime.Symbol;
 
 //------> Codigo para el parser,variables, metodos
 parser code{:
         public String resultado = "";
+        public static NodeArbol raiz;
+        public int contHojas = 0;
+
+        public NodeArbol getRaiz(){
+            return raiz;
+        }
 :}
 
 //------> Codigo para las acciones gramaticales
@@ -24,11 +30,11 @@ terminal digito,
         curv, inte, conj, cadena, sltln,cmllsmpl,cmlldbl, id;
 
 //------> declaracion de no terminales
-non terminal String INICIO, 
-                    E,
+non terminal String INICIO,
                     ER;
+non terminal NodeArbol E;
 
-//------> precedencia de menor a mayor
+//------> precedencia de mayor a menor
 precedence right conca;
 precedence right or;
 precedence right cierre, mas, inte;
@@ -39,30 +45,20 @@ start with INICIO;
 
 /*--------------- 3ra Area: Reglas Semanticas -----------------------*/
 
-INICIO::= E:a    {: :} 
+
+INICIO::= E:a    {: resultado=a; System.out.print(a); :} 
        ;
 
-E ::= conca E:a E:b         {: :}
-    | or E:a E:b            {: :}
-    | cierre E              {: :}
-    | mas E                 {: :}
-    | inte E                {: :}
-    | digito                {: :}
-    | corchea id corchec    {: :}
-    | sltln:a               {: :}
-    | sltln                 {: :}
-    | cmllsmpl              {: :}
-    | cmlldbl               {: :}
+E ::= conca E:a E:b             {: RESULT = new NodeArbol(".","", -1,a,b,true,null,null);   :}
+    | or E:a E:b                {: RESULT = new NodeArbol("|","", -1,a,b,true,null,null); :}
+    | cierre E:a                {: RESULT = new NodeArbol("*","", -1,a,null,true,null,null); :}
+    | mas E:a                   {: RESULT = new NodeArbol("+","", -1,a,null,false,null,null); :}
+    | inte E:a                  {: RESULT = new NodeArbol("|","", -1,a,null,true,null,null); :}
+    | digito:a                  {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,parser.contHojas,parser.contHojas); parser.contHojas++ :}
+    | corchea:a id:b corchec:c  {: RESULT = a.toString()+b.toString()+c.toString() :}
+    | sltln                     {: RESULT: "\n" :}
+    | cmllsmpl                  {: RESULT = "\'" :}
+    | cmlldbl                   {: RESULT = "\"" :}
+    | ER                        {: :}
     ; 
-ER ::= id guion mayork E puntoycoma {:  :}
-
-
- 
-
-
-
-
-
-
-
-
+ER ::= id guion mayork E ptcoma {:  :}

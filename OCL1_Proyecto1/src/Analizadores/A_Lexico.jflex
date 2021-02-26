@@ -33,7 +33,7 @@ digito = [0-9]
 letra = [a-zA-ZÑñ]
 esp = [!-/] | [:-@] | [\\-`] | [{-}]
 cadena = [\"][^\"\n]+[\"]
-id = {Letra}({Letra}|{ digito }|_)*
+id = {letra}({letra}|{ digito }|_)*
 
 
 LineTerminator = \r|\n|\r\n
@@ -68,16 +68,18 @@ comentariosimple    = "//" {InputCharacter}* {LineTerminator}?
 "?"         { System.out.println("Reconocio "+yytext()+" inte"); return new Symbol(Simbolos.inte, yycolumn, yyline, yytext()); }
 "\\n"         { System.out.println("Reconocio "+yytext()+" sltln"); return new Symbol(Simbolos.sltln, yycolumn, yyline, yytext()); }
 "\\'"         { System.out.println("Reconocio "+yytext()+" cmllsmpl"); return new Symbol(Simbolos.cmllsmpl, yycolumn, yyline, yytext()); }
-"\\""         { System.out.println("Reconocio "+yytext()+" cmlldbl"); return new Symbol(Simbolos.cmlldbl, yycolumn, yyline, yytext()); }
+"\\\""         { System.out.println("Reconocio "+yytext()+" cmlldbl"); return new Symbol(Simbolos.cmlldbl, yycolumn, yyline, yytext()); }
 
 //-----> Palabras reservadas
 
-"CONJ"         { System.out.println("Reconocio "+yytext()+" conj"); return new Symbol(Simbolos.conj, yycolumn, yyline, yytext()); }"
+"CONJ"         { System.out.println("Reconocio "+yytext()+" conj"); return new Symbol(Simbolos.conj, yycolumn, yyline, yytext()); }
 
 //-------> Simbolos ER
 {digito}    { System.out.println("Reconocio "+yytext()+" digito"); return new Symbol(Simbolos.digito, yycolumn, yyline, yytext()); }
 {letra}    { System.out.println("Reconocio "+yytext()+" letra"); return new Symbol(Simbolos.letra, yycolumn, yyline, yytext()); }
 {esp}    { System.out.println("Reconocio "+yytext()+" esp"); return new Symbol(Simbolos.esp, yycolumn, yyline, yytext()); }
+{cadena}    { System.out.println("Reconocio "+yytext()+" cadena"); return new Symbol(Simbolos.cadena, yycolumn, yyline, yytext()); }
+{id}    { System.out.println("Reconocio "+yytext()+" id"); return new Symbol(Simbolos.id, yycolumn, yyline, yytext()); }
 
 //------> Espacios
 {comentariosimple}      {System.out.println("Comentario: "+yytext()); }
