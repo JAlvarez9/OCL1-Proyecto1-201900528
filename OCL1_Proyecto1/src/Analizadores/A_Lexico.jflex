@@ -66,9 +66,10 @@ comentariosimple    = "//" {InputCharacter}* {LineTerminator}?
 ";"         { System.out.println("Reconocio "+yytext()+" ptcoma"); return new Symbol(Simbolos.ptcoma, yycolumn, yyline, yytext()); }
 "~"         { System.out.println("Reconocio "+yytext()+" curv"); return new Symbol(Simbolos.curv, yycolumn, yyline, yytext()); }
 "?"         { System.out.println("Reconocio "+yytext()+" inte"); return new Symbol(Simbolos.inte, yycolumn, yyline, yytext()); }
-"\\n"         { System.out.println("Reconocio "+yytext()+" sltln"); return new Symbol(Simbolos.sltln, yycolumn, yyline, yytext()); }
-"\\'"         { System.out.println("Reconocio "+yytext()+" cmllsmpl"); return new Symbol(Simbolos.cmllsmpl, yycolumn, yyline, yytext()); }
-"\\\""         { System.out.println("Reconocio "+yytext()+" cmlldbl"); return new Symbol(Simbolos.cmlldbl, yycolumn, yyline, yytext()); }
+"\\n"       { System.out.println("Reconocio "+yytext()+" sltln"); return new Symbol(Simbolos.sltln, yycolumn, yyline, yytext()); }
+"\\'"       { System.out.println("Reconocio "+yytext()+" cmllsmpl"); return new Symbol(Simbolos.cmllsmpl, yycolumn, yyline, yytext()); }
+"\\\""      { System.out.println("Reconocio "+yytext()+" cmlldbl"); return new Symbol(Simbolos.cmlldbl, yycolumn, yyline, yytext()); }
+","         { System.out.println("Reconocio "+yytext()+" coma"); return new Symbol(Simbolos.coma, yycolumn, yyline, yytext()); }
 
 //-----> Palabras reservadas
 

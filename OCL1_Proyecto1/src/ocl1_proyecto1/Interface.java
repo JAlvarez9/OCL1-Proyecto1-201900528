@@ -5,11 +5,22 @@
  */
 package ocl1_proyecto1;
 
+import Analizadores.Analizador_Lexico;
+import Objetos.Expresiones;
+import Analizadores.Sintactico;
+import Errores.ErroresS;
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -24,7 +35,7 @@ public class Interface extends javax.swing.JFrame {
      * Creates new form Interface
      */
     String path;
-
+    public static ArrayList<ErroresS> listErrors = new ArrayList<ErroresS>();
     public Interface() {
 
         initComponents();
@@ -64,6 +75,11 @@ public class Interface extends javax.swing.JFrame {
         jLabel1.setText("Archivos de Entrada: ");
 
         jButton1.setText("Guardar Automáta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Analizar Entrada");
 
@@ -207,6 +223,53 @@ public class Interface extends javax.swing.JFrame {
         jTextArea1.setEnabled(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    public static void generarReporteHTML() throws IOException{
+        FileWriter fichero = null;
+                PrintWriter pw = null;
+                try {
+                    String path = "Reporteerrores.html";
+                    fichero = new FileWriter(path);
+                    pw = new PrintWriter(fichero);
+                    //comenzamos a escribir el html
+                    pw.println("<html>");
+                    pw.println("<head><title>REPORTE DE ERRORES</title></head>");
+                    pw.println("<body>");
+                    pw.println("<div align=\"center\">");
+                    pw.println("<h1>Reporte de Errores</h1>");
+                    pw.println("<br></br>");
+                    pw.println("<table border=1>");
+                    pw.println("<tr>");
+                    pw.println("<td>ERROR</td>");
+                    pw.println("<td>DESCRIPCION</td>");
+                    pw.println("<td>FILA</td>");
+                    pw.println("<td>COLUMNA</td>");
+                    pw.println("</tr>");
+                    for(int i=0;i<listErrors.size();i++){
+                        pw.println("<tr>");
+                        pw.println("<td>"+listErrors.get(i).getTipo()+"</td>");
+                        pw.println("<td>"+listErrors.get(i).getDescripcion()+"</td>");
+                        pw.println("<td>"+listErrors.get(i).getFila()+"</td>");
+                        pw.println("<td>"+listErrors.get(i).getColumna()+"</td>");
+                        pw.println("</tr>");
+                    }
+                    pw.println("</table>");
+                    pw.println("</div");
+                    pw.println("</body>");
+                    pw.println("</html>");
+                    Desktop.getDesktop().open(new File(path));
+                } catch (Exception e) {
+                }finally{
+                    if(null!=fichero){
+                            fichero.close();
+                    }
+                }
+                try {
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         File saving = new File(path);
@@ -233,6 +296,32 @@ public class Interface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {   
+        //se ejecuta el lexico y sintactico.
+           Sintactico sintactico =new Sintactico(new Analizador_Lexico(new BufferedReader( new StringReader(jTextArea1.getText()))));
+            sintactico.parse();
+            generarReporteHTML();
+            System.out.println("Todo bien, todo correcto :)");
+            
+            LinkedList<Expresiones> lista_er = sintactico.lista_er;
+            
+            for(int i = 0; i < lista_er.size(); i++){
+                System.out.println("Expresion " + i);
+                if(lista_er.get(i) != null){
+                    lista_er.get(i).getArbol().GraficarSintactico();
+                }
+                
+                
+            }
+            
+            
+        } catch (Exception ex) {
+           Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -247,9 +336,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea jTextArea1;

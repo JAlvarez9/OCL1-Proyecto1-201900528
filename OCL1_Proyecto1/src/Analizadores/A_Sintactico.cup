@@ -3,17 +3,43 @@
 //-------> importaciones, paquetes
 package Analizadores;
 import Objetos.NodeArbol;
+import Objetos.Expresiones;
+import Objetos.Conjuntos;
+import Objetos.Encabezado;
+import Objetos.Arbol;
+import Errores.ErroresS;
+import ocl1_proyecto1.Interface;
 import java_cup.runtime.Symbol;
+
+import javax.swing.JOptionPane;
+import java.util.LinkedList;
+
 
 //------> Codigo para el parser,variables, metodos
 parser code{:
-        public String resultado = "";
+        
         public static NodeArbol raiz;
+        public static LinkedList<Expresiones> lista_er;
+        public static LinkedList<Conjuntos> lista_conj;
+        public static Encabezado enca;
         public int contHojas = 0;
 
         public NodeArbol getRaiz(){
             return raiz;
         }
+        public void syntax_error(Symbol s)
+        {
+            System.err.println("Error en la Linea " + (s.right+1) +" Columna "+(s.left+1)+ ". Identificador "+s.value + " no reconocido. Se ha recuperado del error." );
+            ErroresS nuevo = new ErroresS("Error Sintactico (Recuperado)", s.value.toString(), s.right+1, s.left+1);
+            Interface.listErrors.add(nuevo);
+        }
+        public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+        {
+            System.err.println("Error en la Linea " + (s.right+1)+ " Columna "+(s.left+1)+". Identificador " +s.value + " no reconocido.");
+            ErroresS nuevo = new ErroresS("Error Sintactico", s.value.toString(), s.right+1, s.left+1);
+            Interface.listErrors.add(nuevo);
+        }
+
 :}
 
 //------> Codigo para las acciones gramaticales
@@ -27,12 +53,24 @@ action code
 terminal digito, 
          letra,
          esp, conca, or, cierre, mas, corchea, corchec, guion, mayork, menork, prct, dspts, ptcoma,
-        curv, inte, conj, cadena, sltln,cmllsmpl,cmlldbl, id;
+        curv, inte, conj, cadena, sltln,cmllsmpl,cmlldbl, id,coma;
 
 //------> declaracion de no terminales
-non terminal String INICIO,
-                    ER;
-non terminal NodeArbol E;
+non terminal Encabezado INICIO,
+                        ENCABEZADO
+                    ;
+non terminal Conjuntos CONJUNTOS
+                    ; 
+
+non terminal NodeArbol E
+                    ;
+non terminal Expresiones EXPRESION
+                    ;
+non terminal String VALORES,
+                    VAL,
+                    LIST_VAL,
+                    VALIDA
+                    ;
 
 //------> precedencia de mayor a menor
 precedence right conca;
@@ -46,19 +84,45 @@ start with INICIO;
 /*--------------- 3ra Area: Reglas Semanticas -----------------------*/
 
 
-INICIO::= E:a    {: resultado=a; System.out.print(a); :} 
+INICIO::= corchea ENCABEZADO:a prct prct 
+            prct prct VALIDA corchec        {:parser.enca = a;:}
        ;
+ENCABEZADO ::= ENCABEZADO:a CONJUNTOS:b         {: RESULT = parser.enca; RESULT.conj.add(b); :}
+            | ENCABEZADO:a EXPRESION:b          {: RESULT = parser.enca; RESULT.expre.add(b);:}
+            | CONJUNTOS:a                     {: RESULT = parser.enca; RESULT.conj = new LinkedList<>(); RESULT.conj.add(a);:}
+            | EXPRESION:a                    {: RESULT = parser.enca; RESULT.expre = new LinkedList<>(); RESULT.expre.add(a);:}
+        ;
+CONJUNTOS ::= conj dspts id:a guion mayork VALORES:b ptcoma    {: RESULT = new Conjuntos(a.toString(), b);:}
+            | error
+         ;
+VALORES ::= VAL:a curv:b VAL:c        {:RESULT = a.toString()+b+c.toString();:}
+        | LIST_VAL:a                  {:RESULT = a.toString();:}
+        ;
+VAL ::= letra:a                   {: RESULT = a.toString();:}
+        | digito:a                {: RESULT = a.toString();:}
+        | sltln:a                 {: RESULT = a.toString();:}
+        | cmllsmpl:a              {: RESULT = a.toString();:}
+        | cmlldbl:a               {: RESULT = a.toString();:}
+        | esp:a                   {: RESULT = a.toString();:}
+        | id:a                    {: RESULT = a.toString();:}
+        | cadena:a                {: RESULT = a.toString();:}
+    ;
+LIST_VAL ::= LIST_VAL:a coma:b VAL:c     {:RESULT = a.toString()+b+c.toString();:}
+            | VAL:a                       {: RESULT = a.toString();:}
+        ;   
+EXPRESION ::= id:a guion mayork E:b ptcoma     {: RESULT = new Expresiones(a.toString(), new Arbol(b));:}
+        ;
 
 E ::= conca E:a E:b             {: RESULT = new NodeArbol(".","", -1,a,b,true,null,null);   :}
     | or E:a E:b                {: RESULT = new NodeArbol("|","", -1,a,b,true,null,null); :}
     | cierre E:a                {: RESULT = new NodeArbol("*","", -1,a,null,true,null,null); :}
     | mas E:a                   {: RESULT = new NodeArbol("+","", -1,a,null,false,null,null); :}
     | inte E:a                  {: RESULT = new NodeArbol("|","", -1,a,null,true,null,null); :}
-    | digito:a                  {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,parser.contHojas,parser.contHojas); parser.contHojas++ :}
-    | corchea:a id:b corchec:c  {: RESULT = a.toString()+b.toString()+c.toString() :}
-    | sltln                     {: RESULT: "\n" :}
-    | cmllsmpl                  {: RESULT = "\'" :}
-    | cmlldbl                   {: RESULT = "\"" :}
-    | ER                        {: :}
+    | digito:a                  {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++; :}
+    | corchea id:a corchec      {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
+    | sltln                     {:  :}
+    | cmllsmpl                  {:  :}
+    | cmlldbl                   {:  :}
     ; 
-ER ::= id guion mayork E ptcoma {:  :}
+    VALIDA::= id dspts cadena ptcoma    {::}
+                ; 
