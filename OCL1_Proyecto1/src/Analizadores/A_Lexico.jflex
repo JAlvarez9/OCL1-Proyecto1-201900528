@@ -41,6 +41,7 @@ InputCharacter = [^\r\n]
 
 
 comentariosimple    = "//" {InputCharacter}* {LineTerminator}?
+comentarioMulti =  "<!" [^/] ~"!>"
 
 //------> Estados
 
@@ -84,6 +85,7 @@ comentariosimple    = "//" {InputCharacter}* {LineTerminator}?
 
 //------> Espacios
 {comentariosimple}      {System.out.println("Comentario: "+yytext()); }
+{comentarioMulti}      {System.out.println("Comentario: "+yytext()); }
 [ \t\r\n\f]             {/* Espacios en blanco, se ignoran */}
 
 //------> Errores Lexicos

@@ -18,7 +18,7 @@ public class GSintactico {
         opciones[0] = "-destdir";
         
         //Le damos la dirección, carpeta donde se va a generar el parser.java & el simbolosxxx.java
-        opciones[1] = "D:\\Github\\OCL1-Proyecto1-201900528\\OCL1_Proyecto1\\src/Analizadores";
+        opciones[1] = "src/Analizadores"; 
         
         //Seleccionamos la opción de nombre de archivo simbolos
         opciones[2] = "-symbols"; 
@@ -33,7 +33,7 @@ public class GSintactico {
         opciones[5] = "Sintactico"; 
         
         //Le decimos donde se encuentra el archivo .cup 
-        opciones[6] = "D:\\Github\\OCL1-Proyecto1-201900528\\OCL1_Proyecto1\\src\\Analizadores/A_Sintactico.cup"; 
+        opciones[6] = "src/Analizadores/A_Sintactico.cup"; 
         try 
         {
             java_cup.Main.main(opciones);

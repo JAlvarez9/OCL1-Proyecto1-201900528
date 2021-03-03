@@ -14,19 +14,21 @@ import java.util.ArrayList;
 public class Conjuntos {
     public String id;
     public String valores;
+    public String type;
     public ArrayList<String> simbols= new ArrayList<String>();
 
-    public Conjuntos(String id, String valores) {
+    public Conjuntos(String id, String valores, String type) {
         this.id = id;
         this.valores = valores;
-        if(id.contains("~")){
+        this.type = type;
+        if(valores.contains("~")){
             String[] aux = valores.split("~");
             char sup1 = aux[0].charAt(0);
             char sup2 = aux[1].charAt(0);
             for (int i = (int)sup1; i <= (int)sup2; i++) {
                 this.simbols.add(Character.toString((char) i));
             }
-        }else if (id.contains(",")){
+        }else if (valores.contains(",")){
             String[] aux = valores.split(",");
             for (int i = 0; i < aux.length; i++) {
                 this.simbols.add(aux[i]);

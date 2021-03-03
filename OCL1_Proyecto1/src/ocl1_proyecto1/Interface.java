@@ -9,6 +9,8 @@ import Analizadores.Analizador_Lexico;
 import Objetos.Expresiones;
 import Analizadores.Sintactico;
 import Errores.ErroresS;
+import Objetos.Encabezado;
+import Objetos.Validaciones;
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,6 +38,9 @@ public class Interface extends javax.swing.JFrame {
      */
     String path;
     public static ArrayList<ErroresS> listErrors = new ArrayList<ErroresS>();
+    public static LinkedList<Validaciones> lista_val = new LinkedList<Validaciones>();
+    public static Encabezado encabezado = new Encabezado();
+
     public Interface() {
 
         initComponents();
@@ -223,59 +228,59 @@ public class Interface extends javax.swing.JFrame {
         jTextArea1.setEnabled(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    public static void generarReporteHTML() throws IOException{
+    public static void generarReporteHTML() throws IOException {
         FileWriter fichero = null;
-                PrintWriter pw = null;
-                try {
-                    String path = "Reporteerrores.html";
-                    fichero = new FileWriter(path);
-                    pw = new PrintWriter(fichero);
-                    //comenzamos a escribir el html
-                    pw.println("<html>");
-                    pw.println("<head><title>REPORTE DE ERRORES</title></head>");
-                    pw.println("<body>");
-                    pw.println("<div align=\"center\">");
-                    pw.println("<h1>Reporte de Errores</h1>");
-                    pw.println("<br></br>");
-                    pw.println("<table border=1>");
-                    pw.println("<tr>");
-                    pw.println("<td>ERROR</td>");
-                    pw.println("<td>DESCRIPCION</td>");
-                    pw.println("<td>FILA</td>");
-                    pw.println("<td>COLUMNA</td>");
-                    pw.println("</tr>");
-                    for(int i=0;i<listErrors.size();i++){
-                        pw.println("<tr>");
-                        pw.println("<td>"+listErrors.get(i).getTipo()+"</td>");
-                        pw.println("<td>"+listErrors.get(i).getDescripcion()+"</td>");
-                        pw.println("<td>"+listErrors.get(i).getFila()+"</td>");
-                        pw.println("<td>"+listErrors.get(i).getColumna()+"</td>");
-                        pw.println("</tr>");
-                    }
-                    pw.println("</table>");
-                    pw.println("</div");
-                    pw.println("</body>");
-                    pw.println("</html>");
-                    Desktop.getDesktop().open(new File(path));
-                } catch (Exception e) {
-                }finally{
-                    if(null!=fichero){
-                            fichero.close();
-                    }
-                }
-                try {
-            
+        PrintWriter pw = null;
+        try {
+            String path = "Reporteerrores.html";
+            fichero = new FileWriter(path);
+            pw = new PrintWriter(fichero);
+            //comenzamos a escribir el html
+            pw.println("<html>");
+            pw.println("<head><title>REPORTE DE ERRORES</title></head>");
+            pw.println("<body>");
+            pw.println("<div align=\"center\">");
+            pw.println("<h1>Reporte de Errores</h1>");
+            pw.println("<br></br>");
+            pw.println("<table border=1>");
+            pw.println("<tr>");
+            pw.println("<td>ERROR</td>");
+            pw.println("<td>DESCRIPCION</td>");
+            pw.println("<td>FILA</td>");
+            pw.println("<td>COLUMNA</td>");
+            pw.println("</tr>");
+            for (int i = 0; i < listErrors.size(); i++) {
+                pw.println("<tr>");
+                pw.println("<td>" + listErrors.get(i).getTipo() + "</td>");
+                pw.println("<td>" + listErrors.get(i).getDescripcion() + "</td>");
+                pw.println("<td>" + listErrors.get(i).getFila() + "</td>");
+                pw.println("<td>" + listErrors.get(i).getColumna() + "</td>");
+                pw.println("</tr>");
+            }
+            pw.println("</table>");
+            pw.println("</div");
+            pw.println("</body>");
+            pw.println("</html>");
+            //Desktop.getDesktop().open(new File(path));
+        } catch (Exception e) {
+        } finally {
+            if (null != fichero) {
+                fichero.close();
+            }
+        }
+        try {
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         File saving = new File(path);
         try (FileWriter guardado = new FileWriter(saving)) {
             guardado.write(jTextArea1.getText());
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
@@ -298,27 +303,30 @@ public class Interface extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        try {   
-        //se ejecuta el lexico y sintactico.
-           Sintactico sintactico =new Sintactico(new Analizador_Lexico(new BufferedReader( new StringReader(jTextArea1.getText()))));
+        try {
+            //se ejecuta el lexico y sintactico.
+            Sintactico sintactico = new Sintactico(new Analizador_Lexico(new BufferedReader(new StringReader(jTextArea1.getText()))));
             sintactico.parse();
             generarReporteHTML();
             System.out.println("Todo bien, todo correcto :)");
-            
-            LinkedList<Expresiones> lista_er = sintactico.lista_er;
-            
-            for(int i = 0; i < lista_er.size(); i++){
+
+            LinkedList<Object> enca = sintactico.enca;
+            lista_val = sintactico.lista_valida;
+            for (int i = 0; i < enca.size(); i++) {
                 System.out.println("Expresion " + i);
-                if(lista_er.get(i) != null){
-                    lista_er.get(i).getArbol().GraficarSintactico();
+                Expresiones aux = new Expresiones(null, null, null);
+                try {
+                    aux = (Expresiones) enca.get(i);
+                    if (aux != null && aux.type == "Expresion") {
+                        aux.getArbol().GraficarSintactico();
+                    }
+                } catch (Exception e) {
                 }
-                
-                
+
             }
-            
-            
+
         } catch (Exception ex) {
-           Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

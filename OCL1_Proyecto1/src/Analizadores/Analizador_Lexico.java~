@@ -632,7 +632,7 @@ public class Analizador_Lexico implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { ErroresL err = new ErroresL("Lexico",yytext(), yyline.toString(), yycolumn.toString()); err.SendError();
+            { ErroresL err = new ErroresL("Lexico",yytext(), yyline, yycolumn); err.SendError();
             }
           case 27: break;
           case 2: 

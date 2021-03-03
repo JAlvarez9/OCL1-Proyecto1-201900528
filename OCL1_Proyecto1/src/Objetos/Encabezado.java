@@ -18,6 +18,11 @@ public class Encabezado {
     public Encabezado() {
        
     }
-    
+
+    public Encabezado(LinkedList<Conjuntos> conj, LinkedList<Expresiones> expre) {
+        this.conj = conj;
+        this.expre = expre;
+    }
+
     
 }

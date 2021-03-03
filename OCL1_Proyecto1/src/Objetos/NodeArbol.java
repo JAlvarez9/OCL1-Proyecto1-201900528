@@ -41,58 +41,86 @@ public class NodeArbol {
         }
         if (token == ".") {
             if (hijoizq.anulable && hijoder.anulable) {
-                anulable = true;
+                this.anulable = true;
             } else {
-                anulable = false;
+                this.anulable = false;
             }
             if (hijoizq.anulable) {
                 for (int i = 0; i < hijoizq.primeros.size(); i++) {
                     for (int j = 0; j < hijoder.primeros.size(); j++) {
-                        this.primeros.add(hijoizq.primeros.get(i));
-                        this.primeros.add(hijoder.primeros.get(j));
+                        if (hijoizq.primeros.get(i) != null) {
+                            this.primeros.add(hijoizq.primeros.get(i));
+                        }
+                        if (hijoder.primeros.get(i) != null) {
+                            this.primeros.add(hijoder.primeros.get(j));
+                        }
+                        
                     }
                 }
             } else {
                 this.primeros = hijoizq.primeros;
             }
-            if (hijoder.anulable) {
+            if (hijoder.anulable) {  
                 for (int i = 0; i < hijoizq.ultimos.size(); i++) {
                     for (int j = 0; j < hijoder.ultimos.size(); j++) {
-                        this.ultimos.add(hijoizq.ultimos.get(i));
-                        this.ultimos.add(hijoder.ultimos.get(j));
+                        if (hijoizq.ultimos.get(i) != null) {
+                            this.ultimos.add(hijoizq.ultimos.get(i));
+                        }
+                        if (hijoder.ultimos.get(j) != null) {
+                            this.ultimos.add(hijoder.ultimos.get(j));
+                        }
+
                     }
                 }
             } else {
-                this.ultimos = hijoizq.ultimos;
+                this.ultimos = hijoder.ultimos;
             }
         }
         if (token == "|") {
             if (hijoizq.anulable || hijoder.anulable) {
-                anulable = true;
+                this.anulable = true;
             } else {
-                anulable = false;
+                this.anulable = false;
             }
             for (int i = 0; i < hijoizq.primeros.size(); i++) {
                 for (int j = 0; j < hijoder.primeros.size(); j++) {
-                    this.primeros.add(hijoizq.primeros.get(i));
-                    this.primeros.add(hijoder.primeros.get(j));
+                    if (hijoizq.primeros.get(i) != null) {
+                        this.primeros.add(hijoizq.primeros.get(i));
+                    }
+                    if (hijoder.primeros.get(j) != null) {
+                        this.primeros.add(hijoder.primeros.get(j));
+                    }
+
                 }
             }
             for (int i = 0; i < hijoizq.ultimos.size(); i++) {
                 for (int j = 0; j < hijoder.ultimos.size(); j++) {
-                    this.ultimos.add(hijoizq.ultimos.get(i));
-                    this.ultimos.add(hijoder.ultimos.get(j));
+                    if (hijoizq.ultimos.get(i) != null) {
+                        this.ultimos.add(hijoizq.ultimos.get(i));
+                    }
+                    if (hijoder.ultimos.get(j) != null) {
+                        this.ultimos.add(hijoder.ultimos.get(j));
+                    }
+
                 }
             }
         }
         if (this.token == "*") {
             this.anulable = true;
-             this.primeros = hijoizq.primeros;
-             this.ultimos = hijoizq.ultimos;
+            this.primeros = hijoizq.primeros;
+            this.ultimos = hijoizq.ultimos;
         }
-        
+        if (this.token == "+") {
 
-        
+            this.primeros = hijoizq.primeros;
+            this.ultimos = hijoizq.ultimos;
+        }
+        if (this.token == "?") {
+            this.anulable = true;
+            this.primeros = hijoizq.primeros;
+            this.ultimos = hijoizq.ultimos;
+        }
+
     }
 
 }

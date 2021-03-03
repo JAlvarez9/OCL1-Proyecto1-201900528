@@ -13,10 +13,13 @@ public class Expresiones {
 
     public String id;
     public Arbol raiz;
+    public String type;
 
-    public Expresiones(String id, Arbol raiz) {
+    public Expresiones(String id, Arbol raiz, String type) {
         this.raiz = raiz;
         this.id = id;
+        this.type = type;
+        
     }
 
     public String getId() {

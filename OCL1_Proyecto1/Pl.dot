@@ -1,0 +1,274 @@
+Digraph Pl{
+
+node0[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,1</TD> 
+<TD >,9 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node0 -> node00
+node00[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,1</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node00 -> node000
+node000[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,1</TD> 
+<TD >,1 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>posibles</TD> 
+</TR> 
+<TR> 
+<TD >1</TD> 
+</TR>
+</TABLE> 
+>, ];node00 -> node001
+node001[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,2,3</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node001 -> node0010
+node0010[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,2</TD> 
+<TD >,2 </TD> 
+</TR> 
+<TR> 
+<TD >Anulable</TD> 
+<TD>?</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node0010 -> node00100
+node00100[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,2</TD> 
+<TD >,2 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>"-"</TD> 
+</TR> 
+<TR> 
+<TD >2</TD> 
+</TR>
+</TABLE> 
+>, ];node001 -> node0011
+node0011[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,3</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node0011 -> node00110
+node00110[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,3</TD> 
+<TD >,3 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>digito</TD> 
+</TR> 
+<TR> 
+<TD >3</TD> 
+</TR>
+</TABLE> 
+>, ];node0011 -> node00111
+node00111[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,4</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node00111 -> node001110
+node001110[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,4</TD> 
+<TD >,4 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>digito</TD> 
+</TR> 
+<TR> 
+<TD >4</TD> 
+</TR>
+</TABLE> 
+>, ];node00111 -> node001111
+node001111[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,5</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node001111 -> node0011110
+node0011110[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,5</TD> 
+<TD >,5 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>digito</TD> 
+</TR> 
+<TR> 
+<TD >5</TD> 
+</TR>
+</TABLE> 
+>, ];node001111 -> node0011111
+node0011111[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,6</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node0011111 -> node00111110
+node00111110[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,6</TD> 
+<TD >,6 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>letra</TD> 
+</TR> 
+<TR> 
+<TD >6</TD> 
+</TR>
+</TABLE> 
+>, ];node0011111 -> node00111111
+node00111111[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,7</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node00111111 -> node001111110
+node001111110[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,7</TD> 
+<TD >,7 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>letra</TD> 
+</TR> 
+<TR> 
+<TD >7</TD> 
+</TR>
+</TABLE> 
+>, ];node00111111 -> node001111111
+node001111111[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,8</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>letra</TD> 
+</TR> 
+<TR> 
+<TD >8</TD> 
+</TR>
+</TABLE> 
+>, ];node0 -> node01
+node01[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,9</TD> 
+<TD >,9 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>#</TD> 
+</TR> 
+<TR> 
+<TD >9</TD> 
+</TR>
+</TABLE> 
+>, ];
+
+}

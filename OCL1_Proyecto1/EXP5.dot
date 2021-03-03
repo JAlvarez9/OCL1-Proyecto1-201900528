@@ -1,0 +1,244 @@
+Digraph EXP5{
+
+node0[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,1</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node0 -> node00
+node00[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,1</TD> 
+<TD >,7 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node00 -> node000
+node000[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,1</TD> 
+<TD >,1 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>\'</TD> 
+</TR> 
+<TR> 
+<TD >1</TD> 
+</TR>
+</TABLE> 
+>, ];node00 -> node001
+node001[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,6,5,6,4,6,5,6,2,6,5,6,4,6,5,6,3,6,5,6,4,6,5,6</TD> 
+<TD >,7 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node001 -> node0010
+node0010[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,6,5,6,4,6,5,6,2,6,5,6,4,6,5,6,3,6,5,6,4,6,5,6</TD> 
+<TD >,null,6,5,6,4,6,5,6,2,6,5,6,4,6,5,6,3,6,5,6,4,6,5,6 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>+</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node0010 -> node00100
+node00100[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,6,5,6,4,6,5,6,2,6,5,6,4,6,5,6,3,6,5,6,4,6,5,6</TD> 
+<TD >,null,6,5,6,4,6,5,6,2,6,5,6,4,6,5,6,3,6,5,6,4,6,5,6 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>|</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node00100 -> node001000
+node001000[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,5,4,5,2,5,4,5,3,5,4,5</TD> 
+<TD >,null,5,4,5,2,5,4,5,3,5,4,5 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>|</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node001000 -> node0010000
+node0010000[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,4,2,4,3,4</TD> 
+<TD >,null,4,2,4,3,4 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>|</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node0010000 -> node00100000
+node00100000[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,2,3</TD> 
+<TD >,null,2,3 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>|</TD> 
+</TR> 
+<TR> 
+<TD >-1</TD> 
+</TR>
+</TABLE> 
+>, ];node00100000 -> node001000000
+node001000000[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,2</TD> 
+<TD >,2 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>\n</TD> 
+</TR> 
+<TR> 
+<TD >2</TD> 
+</TR>
+</TABLE> 
+>, ];node00100000 -> node001000001
+node001000001[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,3</TD> 
+<TD >,3 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>minus</TD> 
+</TR> 
+<TR> 
+<TD >3</TD> 
+</TR>
+</TABLE> 
+>, ];node0010000 -> node00100001
+node00100001[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,4</TD> 
+<TD >,4 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>mayus</TD> 
+</TR> 
+<TR> 
+<TD >4</TD> 
+</TR>
+</TABLE> 
+>, ];node001000 -> node0010001
+node0010001[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,5</TD> 
+<TD >,5 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>digito</TD> 
+</TR> 
+<TR> 
+<TD >5</TD> 
+</TR>
+</TABLE> 
+>, ];node00100 -> node001001
+node001001[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,6</TD> 
+<TD >,6 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>" "</TD> 
+</TR> 
+<TR> 
+<TD >6</TD> 
+</TR>
+</TABLE> 
+>, ];node001 -> node0011
+node0011[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,7</TD> 
+<TD >,7 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>\'</TD> 
+</TR> 
+<TR> 
+<TD >7</TD> 
+</TR>
+</TABLE> 
+>, ];node0 -> node01
+node01[label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,8</TD> 
+<TD >,8 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>#</TD> 
+</TR> 
+<TR> 
+<TD >8</TD> 
+</TR>
+</TABLE> 
+>, ];
+
+}

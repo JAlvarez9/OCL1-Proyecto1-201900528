@@ -8,6 +8,7 @@ import Objetos.Conjuntos;
 import Objetos.Encabezado;
 import Objetos.Arbol;
 import Errores.ErroresS;
+import Objetos.Validaciones;
 import ocl1_proyecto1.Interface;
 import java_cup.runtime.Symbol;
 
@@ -19,10 +20,12 @@ import java.util.LinkedList;
 parser code{:
         
         public static NodeArbol raiz;
-        public static LinkedList<Expresiones> lista_er;
-        public static LinkedList<Conjuntos> lista_conj;
-        public static Encabezado enca;
-        public int contHojas = 0;
+        public static LinkedList<Object> enca;
+        
+        
+        public int contHojas = 1;
+        public int contExpre = 0;
+        public static LinkedList<Validaciones> lista_valida;
 
         public NodeArbol getRaiz(){
             return raiz;
@@ -56,9 +59,9 @@ terminal digito,
         curv, inte, conj, cadena, sltln,cmllsmpl,cmlldbl, id,coma;
 
 //------> declaracion de no terminales
-non terminal Encabezado INICIO,
-                        ENCABEZADO
-                    ;
+non terminal LinkedList<Object> INICIO,
+                                 ENCABEZADO
+                                 ;
 non terminal Conjuntos CONJUNTOS
                     ; 
 
@@ -68,8 +71,11 @@ non terminal Expresiones EXPRESION
                     ;
 non terminal String VALORES,
                     VAL,
-                    LIST_VAL,
-                    VALIDA
+                    LIST_VAL    
+                    ;
+non terminal LinkedList<Validaciones> VALIDACIONES
+                    ;
+non terminal Validaciones VALIDA
                     ;
 
 //------> precedencia de mayor a menor
@@ -79,21 +85,22 @@ precedence right cierre, mas, inte;
 
 
 
-start with INICIO;
+start with INICIO; 
 
 /*--------------- 3ra Area: Reglas Semanticas -----------------------*/
 
 
 INICIO::= corchea ENCABEZADO:a prct prct 
-            prct prct VALIDA corchec        {:parser.enca = a;:}
-       ;
-ENCABEZADO ::= ENCABEZADO:a CONJUNTOS:b         {: RESULT = parser.enca; RESULT.conj.add(b); :}
-            | ENCABEZADO:a EXPRESION:b          {: RESULT = parser.enca; RESULT.expre.add(b);:}
-            | CONJUNTOS:a                     {: RESULT = parser.enca; RESULT.conj = new LinkedList<>(); RESULT.conj.add(a);:}
-            | EXPRESION:a                    {: RESULT = parser.enca; RESULT.expre = new LinkedList<>(); RESULT.expre.add(a);:}
-        ;
-CONJUNTOS ::= conj dspts id:a guion mayork VALORES:b ptcoma    {: RESULT = new Conjuntos(a.toString(), b);:}
+            prct prct VALIDACIONES:b corchec        {:parser.enca = a; parser.lista_valida = b;:}
             | error
+       ;
+ENCABEZADO ::= ENCABEZADO:a EXPRESION:b         {: RESULT = a; RESULT.add(b); :}
+            | ENCABEZADO:a CONJUNTOS:b          {: RESULT = a; RESULT.add(b);:}
+            | EXPRESION:a                     {: RESULT = new LinkedList<>(); RESULT.add(a);:}
+            | CONJUNTOS:a                    {: RESULT = new LinkedList<>(); RESULT.add(a);:}
+        ;
+CONJUNTOS ::= conj dspts id:a guion mayork VALORES:b ptcoma    {: RESULT = new Conjuntos(a.toString(), b,"Conjunto"); :}
+        | error
          ;
 VALORES ::= VAL:a curv:b VAL:c        {:RESULT = a.toString()+b+c.toString();:}
         | LIST_VAL:a                  {:RESULT = a.toString();:}
@@ -107,22 +114,27 @@ VAL ::= letra:a                   {: RESULT = a.toString();:}
         | id:a                    {: RESULT = a.toString();:}
         | cadena:a                {: RESULT = a.toString();:}
     ;
-LIST_VAL ::= LIST_VAL:a coma:b VAL:c     {:RESULT = a.toString()+b+c.toString();:}
-            | VAL:a                       {: RESULT = a.toString();:}
+LIST_VAL ::= LIST_VAL:a coma:b VAL:c        {:RESULT = a.toString()+b+c.toString();:}
+            | VAL:a                         {: RESULT = a.toString();:}
         ;   
-EXPRESION ::= id:a guion mayork E:b ptcoma     {: RESULT = new Expresiones(a.toString(), new Arbol(b));:}
+EXPRESION ::= id:a guion mayork E:b ptcoma     {:RESULT = new Expresiones(a.toString(), new Arbol(b, a.toString(), parser.contHojas),"Expresion"); parser.contHojas = 1; :}
         ;
 
 E ::= conca E:a E:b             {: RESULT = new NodeArbol(".","", -1,a,b,true,null,null);   :}
     | or E:a E:b                {: RESULT = new NodeArbol("|","", -1,a,b,true,null,null); :}
     | cierre E:a                {: RESULT = new NodeArbol("*","", -1,a,null,true,null,null); :}
     | mas E:a                   {: RESULT = new NodeArbol("+","", -1,a,null,false,null,null); :}
-    | inte E:a                  {: RESULT = new NodeArbol("|","", -1,a,null,true,null,null); :}
+    | inte E:a                  {: RESULT = new NodeArbol("?","", -1,a,null,true,null,null); :}
     | digito:a                  {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++; :}
     | corchea id:a corchec      {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
-    | sltln                     {:  :}
-    | cmllsmpl                  {:  :}
-    | cmlldbl                   {:  :}
+    | sltln:a                   {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
+    | cmllsmpl:a                {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
+    | cmlldbl:a                 {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
+    | cadena:a                  {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
     ; 
-    VALIDA::= id dspts cadena ptcoma    {::}
-                ; 
+
+VALIDACIONES ::= VALIDACIONES:a VALIDA:b        {: RESULT = a; RESULT.add(b); :}
+            | VALIDA:a                          {: RESULT = new LinkedList<>(); RESULT.add(a);:}
+            ;
+VALIDA::= id:a dspts cadena:b ptcoma            {:RESULT = new Validaciones(a.toString(),b.toString());:}
+            ; 
