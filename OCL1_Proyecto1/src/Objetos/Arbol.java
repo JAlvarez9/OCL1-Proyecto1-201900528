@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 
 /**
  *
@@ -24,14 +25,15 @@ public class Arbol {
     public Arbol(NodeArbol raiz, String id, int ulthoja) {
         this.raiz = raiz;
         this.id = id;
-        NodeArbol hash = new NodeArbol("#", "", ulthoja, null, null, false, String.valueOf(ulthoja), String.valueOf(ulthoja));
-        NodeArbol last = new NodeArbol(".", "", -1, this.raiz, hash, false, null, null);
+        NodeArbol hash = new NodeArbol("#", "", ulthoja, null, null, false, String.valueOf(ulthoja), String.valueOf(ulthoja), true);
+        NodeArbol last = new NodeArbol(".", "", -1, this.raiz, hash, false, null, null, false);
+
         this.raiz = last;
 
     }
 
     public void GraficarSintactico() {
-        String grafica = "Digraph " + id + "{\n\n" + GraficaNodos(this.raiz, "0") + "\n\n}";
+        String grafica = "digraph " + id + "{\n\n" + GraficaNodos(this.raiz, "0") + "\n\n}";
         GenerarDot(grafica);
 
     }
@@ -40,38 +42,38 @@ public class Arbol {
         int k = 0;
         String r = "";
         String nodoTerm = nodo.token;
-        String primeros ="";
-        String ultimos ="";
+        String primeros = "";
+        String ultimos = "";
         String anulable = "";
         String id = String.valueOf(nodo.id);
         if (nodo.id <= 0) {
             id = String.valueOf(nodo.id);
         }
         for (int j = 0; j < nodo.primeros.size(); j++) {
-            primeros += ","+ nodo.primeros.get(j);
+            primeros += "," + nodo.primeros.get(j);
         }
         for (int j = 0; j < nodo.ultimos.size(); j++) {
-            ultimos += ","+ nodo.ultimos.get(j);
+            ultimos += "," + nodo.ultimos.get(j);
         }
         if (nodo.anulable) {
             anulable = "Anulable";
-        }else{
+        } else {
             anulable = "No Anulable";
         }
         nodoTerm = nodoTerm.replace("\"", "");
         //r = "node" + i + "[label = \"" + nodoTerm + "\"];\n";
-        r = "node" + i +"[shape =\"none\" label=< \n"
+        r = "node" + i + "[shape =\"none\" label=< \n"
                 + "<TABLE ALIGN=\"LEFT\"> \n"
                 + "<TR> \n"
-                + "<TD >"+primeros +"</TD> \n"
-                + "<TD >"+ultimos+" </TD> \n"
+                + "<TD >" + primeros + "</TD> \n"
+                + "<TD >" + ultimos + " </TD> \n"
                 + "</TR> \n"
                 + "<TR> \n"
-                + "<TD >"+anulable+"</TD> \n"
-                + "<TD>"+ nodo.token +"</TD> \n"
+                + "<TD >" + anulable + "</TD> \n"
+                + "<TD>" + nodo.token + "</TD> \n"
                 + "</TR> \n"
                 + "<TR> \n"
-                + "<TD > id:"+ id+"</TD> \n"
+                + "<TD > id:" + id + "</TD> \n"
                 + "</TR>\n"
                 + "</TABLE> \n"
                 + ">, ];";
@@ -111,7 +113,7 @@ public class Arbol {
     public void reportar() throws IOException {
 
         String file_input_path = this.id + ".dot";
-        String do_path = "C:\\Program Files\\Graphviz 2.44.1\\bin\\dot.exe";
+        String do_path = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
 
         String file_get_path = this.id + ".jpg";
         try {
@@ -123,7 +125,6 @@ public class Arbol {
             ex.printStackTrace();
         }
 
-        Desktop.getDesktop().open(new File(file_get_path));
     }
 
 }

@@ -120,17 +120,17 @@ LIST_VAL ::= LIST_VAL:a coma:b VAL:c        {:RESULT = a.toString()+b+c.toString
 EXPRESION ::= id:a guion mayork E:b ptcoma     {:RESULT = new Expresiones(a.toString(), new Arbol(b, a.toString(), parser.contHojas),"Expresion"); parser.contHojas = 1; :}
         ;
 
-E ::= conca E:a E:b             {: RESULT = new NodeArbol(".","", -1,a,b,true,null,null);   :}
-    | or E:a E:b                {: RESULT = new NodeArbol("|","", -1,a,b,true,null,null); :}
-    | cierre E:a                {: RESULT = new NodeArbol("*","", -1,a,null,true,null,null); :}
-    | mas E:a                   {: RESULT = new NodeArbol("+","", -1,a,null,false,null,null); :}
-    | inte E:a                  {: RESULT = new NodeArbol("?","", -1,a,null,true,null,null); :}
-    | digito:a                  {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++; :}
-    | corchea id:a corchec      {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
-    | sltln:a                   {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
-    | cmllsmpl:a                {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
-    | cmlldbl:a                 {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
-    | cadena:a                  {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas)); parser.contHojas++;  :}
+E ::= conca E:a E:b             {: RESULT = new NodeArbol(".","", -1,a,b,true,null,null,false);   :}
+    | or E:a E:b                {: RESULT = new NodeArbol("|","", -1,a,b,true,null,null,false); :}
+    | cierre E:a                {: RESULT = new NodeArbol("*","", -1,a,null,true,null,null,false); :}
+    | mas E:a                   {: RESULT = new NodeArbol("+","", -1,a,null,false,null,null,false); :}
+    | inte E:a                  {: RESULT = new NodeArbol("?","", -1,a,null,true,null,null,false); :}
+    | digito:a                  {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas),true); parser.contHojas++; :}
+    | corchea id:a corchec      {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas),true); parser.contHojas++;  :}
+    | sltln:a                   {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas),true); parser.contHojas++;  :}
+    | cmllsmpl:a                {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas),true); parser.contHojas++;  :}
+    | cmlldbl:a                 {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas),true); parser.contHojas++;  :}
+    | cadena:a                  {: RESULT = new NodeArbol(a.toString(), "", parser.contHojas,null,null,false,String.valueOf(parser.contHojas),String.valueOf(parser.contHojas),true); parser.contHojas++;  :}
     ; 
 
 VALIDACIONES ::= VALIDACIONES:a VALIDA:b        {: RESULT = a; RESULT.add(b); :}

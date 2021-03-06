@@ -10,6 +10,10 @@ import Objetos.Expresiones;
 import Analizadores.Sintactico;
 import Errores.ErroresS;
 import Objetos.Encabezado;
+import Objetos.NSiguiente;
+import Objetos.NTrancisiones;
+import Objetos.TSiguiente;
+import Objetos.TTransiciones;
 import Objetos.Validaciones;
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -319,11 +323,20 @@ public class Interface extends javax.swing.JFrame {
                     aux = (Expresiones) enca.get(i);
                     if (aux != null && aux.type == "Expresion") {
                         aux.getArbol().GraficarSintactico();
+                        aux.recorridoPreorden();
+                        TSiguiente aux2 = new TSiguiente(aux.hojitas, aux.id);
+                        aux.setTablita(aux2);
+                        aux.getTablita().GenerarTablita();
+                        LinkedList<NTrancisiones> nodito = new LinkedList<NTrancisiones>();
+                        TTransiciones tablita = new TTransiciones(aux.getArbol().raiz.primeros, aux.getTablita().nodes,aux.id,nodito) ;
+                        aux.setTablitatransi(tablita);
+                        aux.getTablitatransi().GraphTablita();
                     }
                 } catch (Exception e) {
                 }
 
             }
+            System.out.println("Hola :)");
 
         } catch (Exception ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
