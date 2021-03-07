@@ -15,8 +15,7 @@ public class NTrancisiones {
 
     public String num;
     public LinkedList<String> conj = new LinkedList<String>();
-    public LinkedList<String> ids = new LinkedList<String>();
-    public LinkedList<String> proximos = new LinkedList<String>();
+    public LinkedList<String> moves = new LinkedList<String>();
     
     public Boolean aceptacion;
     public NTrancisiones(String num) {

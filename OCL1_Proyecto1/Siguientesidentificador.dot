@@ -1,0 +1,32 @@
+digraph Siguientesidentificador{
+
+node0 [shape= "none" label=< 
+<TABLE> 
+<TR>
+<TD> Hoja </TD>
+<TD> Siguientes </TD>
+</TR>
+<TR>
+<TD> 1-letra </TD>
+<TD> 5,2,3,4, </TD>
+</TR>
+<TR>
+<TD> 2-"_" </TD>
+<TD> 5,2,3,4, </TD>
+</TR>
+<TR>
+<TD> 3-letra </TD>
+<TD> 5,2,3,4, </TD>
+</TR>
+<TR>
+<TD> 4-digito </TD>
+<TD> 5,2,3,4, </TD>
+</TR>
+<TR>
+<TD> 5-# </TD>
+<TD>  </TD>
+</TR>
+</TABLE>
+>, ]; 
+} 
+

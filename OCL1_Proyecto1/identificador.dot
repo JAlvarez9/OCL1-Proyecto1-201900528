@@ -1,0 +1,154 @@
+digraph identificador{
+
+node0[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,1</TD> 
+<TD >,5 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD > id:-1</TD> 
+</TR>
+</TABLE> 
+>, ];node0 -> node00
+node00[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,1</TD> 
+<TD >,null,1,2,3,4 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>.</TD> 
+</TR> 
+<TR> 
+<TD > id:-1</TD> 
+</TR>
+</TABLE> 
+>, ];node00 -> node000
+node000[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,1</TD> 
+<TD >,1 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>letra</TD> 
+</TR> 
+<TR> 
+<TD > id:1</TD> 
+</TR>
+</TABLE> 
+>, ];node00 -> node001
+node001[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,2,3,4</TD> 
+<TD >,null,2,3,4 </TD> 
+</TR> 
+<TR> 
+<TD >Anulable</TD> 
+<TD>*</TD> 
+</TR> 
+<TR> 
+<TD > id:-1</TD> 
+</TR>
+</TABLE> 
+>, ];node001 -> node0010
+node0010[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,2,3,4</TD> 
+<TD >,null,2,3,4 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>|</TD> 
+</TR> 
+<TR> 
+<TD > id:-1</TD> 
+</TR>
+</TABLE> 
+>, ];node0010 -> node00100
+node00100[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,2</TD> 
+<TD >,2 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>"_"</TD> 
+</TR> 
+<TR> 
+<TD > id:2</TD> 
+</TR>
+</TABLE> 
+>, ];node0010 -> node00101
+node00101[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,null,3,4</TD> 
+<TD >,null,3,4 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>|</TD> 
+</TR> 
+<TR> 
+<TD > id:-1</TD> 
+</TR>
+</TABLE> 
+>, ];node00101 -> node001010
+node001010[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,3</TD> 
+<TD >,3 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>letra</TD> 
+</TR> 
+<TR> 
+<TD > id:3</TD> 
+</TR>
+</TABLE> 
+>, ];node00101 -> node001011
+node001011[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,4</TD> 
+<TD >,4 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>digito</TD> 
+</TR> 
+<TR> 
+<TD > id:4</TD> 
+</TR>
+</TABLE> 
+>, ];node0 -> node01
+node01[shape ="none" label=< 
+<TABLE ALIGN="LEFT"> 
+<TR> 
+<TD >,5</TD> 
+<TD >,5 </TD> 
+</TR> 
+<TR> 
+<TD >No Anulable</TD> 
+<TD>#</TD> 
+</TR> 
+<TR> 
+<TD > id:5</TD> 
+</TR>
+</TABLE> 
+>, ];
+
+}

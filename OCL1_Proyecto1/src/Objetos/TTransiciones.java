@@ -21,6 +21,7 @@ public class TTransiciones {
     public LinkedList<NTrancisiones> estados;
     ;
     public LinkedList<NSiguiente> nodes;
+    public String[][] tablona;
     int cont = 1;
 
     public TTransiciones(LinkedList<String> primeros, LinkedList<NSiguiente> nodes, String name, LinkedList<NTrancisiones> estados) {
@@ -33,13 +34,33 @@ public class TTransiciones {
         for (int i = 0; i < pos_cero.conj.size(); i++) {
             for (int j = 0; j < this.nodes.size() - 1; j++) {
                 if (pos_cero.conj.get(i).equals(this.nodes.get(j).num)) {
-                    pos_cero.ids.add(this.nodes.get(j).node);
+                    pos_cero.moves.add(this.nodes.get(j).node);
                 }
             }
         }
 
         Recurson(pos_cero.conj);
         this.estados.remove(this.estados.size() - 1);
+        LinkedList<String> aux = new LinkedList<String>();
+        for (int i = 0; i < this.nodes.size() - 1; i++) {
+            if (!aux.contains(this.nodes.get(i).node)) {
+                aux.add(this.nodes.get(i).node);
+            }
+        }
+        this.tablona = new String[this.estados.size() + 1][aux.size() + 1];
+        for (int i = 0; i < tablona.length; i++) {
+            if (i != 0) {
+                tablona[i][0] = String.valueOf(i - 1);
+            }
+
+        }
+        for (int i = 0; i < tablona[0].length; i++) {
+            if (i != 0) {
+                tablona[0][i] = aux.get(i - 1);
+            }
+        }
+        Tablas();
+        System.out.println("holis");
     }
 
     public void Recurson(LinkedList<String> sig) {
@@ -71,7 +92,7 @@ public class TTransiciones {
                             if (this.nodes.get(k) != null && support.conj.get(j) != null) {
                                 if (support.conj.get(j).equals(this.nodes.get(k).num)) {
 
-                                    support.ids.add(this.nodes.get(k).node);
+                                    support.moves.add(this.nodes.get(k).node);
                                 }
                             }
 
@@ -87,6 +108,63 @@ public class TTransiciones {
             }
         }
 
+    }
+
+    public void Tablas() {
+        Object[] aux3 = new Object[0];
+        String aux2 = "";
+        for (int i = 0; i < this.estados.size(); i++) {
+            for (int j = 0; j < this.estados.get(i).conj.size(); j++) {
+                if (this.estados.get(i).conj.get(j) != null) {
+
+                    int aux = Conseguir(this.estados.get(i).conj.get(j));
+                    if (aux >= 0) {
+                        for (int k = 0; k < this.estados.size(); k++) {
+                            Object[] sup1 = this.nodes.get(aux).siguientes.toArray();
+                            Object[] sup2 = this.estados.get(k).conj.toArray();
+                            if (Arrays.equals(sup1, sup2)) {
+                                aux2 = this.estados.get(k).num;
+                                aux3 = this.estados.get(i).moves.toArray();
+                                System.out.println("asd");
+                            }
+                        }
+                        RecorridoTablona(i, aux3, aux2);
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+    public void RecorridoTablona(int j, Object[] aux3, String aux2) {
+        
+        outer: for (int k = 0; k < aux3.length; k++) {
+            String aux = (String) aux3[k];
+            inner: for (int i = 1; i < this.tablona[j + 1].length; i++) {
+                if (aux.equals(tablona[0][i])) {
+                    this.tablona[j + 1][i] = aux2;
+                    this.estados.get(j).moves.remove(aux);
+                    break outer;
+
+                }
+
+            }
+        }
+
+    }
+
+    public int Conseguir(String a) {
+        for (int i = 0; i < this.nodes.size(); i++) {
+            if (i != this.nodes.size() - 1) {
+                if (this.nodes.get(i).num.equals(a)) {
+                    return i;
+                }
+            }
+
+        }
+        return -1;
     }
 
     public void GraphTablita() {
@@ -114,15 +192,17 @@ public class TTransiciones {
         }
 
         grafica += "</TR>\n";
-        for (NTrancisiones node : this.estados) {
+        for (int i = 1; i < this.tablona.length; i++) {
             grafica += "<TR>\n";
-            grafica += "<TD> S" + node.num + "{" + node.conj + "} </TD>\n";
-            //String auxi = "";
-            for (int i = 0; i < node.ids.size(); i++) {
-                grafica += "<TD>"+ node.ids.indexOf(node.ids.get(i)) +"</TD>\n";
+            for (int j = 0; j < this.tablona[i].length; j++) {
+                if (this.tablona[i][j] != null) {
+                    grafica += "<TD> S" + this.tablona[i][j] + " </TD>\n";;
+                } else {
+                    grafica += "<TD> --- </TD>\n";;
+                }
+
             }
             grafica += "</TR>\n";
-
         }
         grafica += "</TABLE>\n";
         grafica += ">, ]; \n";
