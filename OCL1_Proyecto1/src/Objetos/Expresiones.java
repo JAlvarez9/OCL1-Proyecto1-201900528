@@ -19,6 +19,9 @@ public class Expresiones {
     public TSiguiente tablita;
     public LinkedList<NodeArbol> hojitas;
     public TTransiciones tablitatransi;
+    public AFD afedesito;
+    public LinkedList<NAfnd> hojitasafnd = new LinkedList<NAfnd>();
+    public AFND afede;
 
     public Expresiones(String id, Arbol raiz, String type) {
         this.raiz = raiz;
@@ -43,7 +46,7 @@ public class Expresiones {
     public TSiguiente getTablita() {
         return tablita;
     }
-    
+
     public void setTablita(TSiguiente aux) {
         this.tablita = aux;
     }
@@ -61,6 +64,22 @@ public class Expresiones {
 
     }
 
+    public AFD getAfedesito() {
+        return afedesito;
+    }
+
+    public void setAfedesito(AFD afedesito) {
+        this.afedesito = afedesito;
+    }
+
+    public AFND getAfede() {
+        return afede;
+    }
+
+    public void setAfede(AFND afede) {
+        this.afede = afede;
+    }
+
     private void ayudantePreorden(NodeArbol aux) {
 
         if (aux != null) {
@@ -75,6 +94,27 @@ public class Expresiones {
             }
             ayudantePreorden(aux.hijoizq);
             ayudantePreorden(aux.hijoder);
+        }
+
+    }
+
+    public synchronized void recorridoPostorden() {
+        ayudantePostorden(this.raiz.raiz);
+
+    }
+
+    private void ayudantePostorden(NodeArbol aux) {
+
+        if (aux != null) {
+
+            ayudantePostorden(aux.hijoizq);
+            ayudantePostorden(aux.hijoder);
+
+            if (!aux.hoja) {
+                NAfnd sup = new NAfnd(aux.token);
+                this.hojitasafnd.add(sup);
+            }
+
         }
 
     }

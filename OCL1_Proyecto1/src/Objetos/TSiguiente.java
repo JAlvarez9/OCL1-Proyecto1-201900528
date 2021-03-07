@@ -130,7 +130,7 @@ public class TSiguiente {
         FileWriter fichero = null;
         PrintWriter escritor = null;
         try {
-            String name = "Siguientes" + this.name + ".dot";
+            String name = "DOTS_201900528\\Siguientes" + this.name + ".dot";
             fichero = new FileWriter(name);
             escritor = new PrintWriter(fichero);
             escritor.println(cadena);
@@ -145,10 +145,10 @@ public class TSiguiente {
 
     public void reportar() throws IOException {
 
-        String file_input_path = "Siguientes" + this.name + ".dot";
+        String file_input_path = "DOTS_201900528\\Siguientes" + this.name + ".dot";
         String do_path = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
 
-        String file_get_path = "Siguientes" + this.name + ".jpg";
+        String file_get_path = "SIGUIENTES_201900528\\Siguientes" + this.name + ".jpg";
         try {
             ProcessBuilder pBuilder;
             pBuilder = new ProcessBuilder(do_path, "-Tjpg", "-o", file_get_path, file_input_path);

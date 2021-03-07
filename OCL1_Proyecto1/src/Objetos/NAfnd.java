@@ -9,6 +9,12 @@ package Objetos;
  *
  * @author feral
  */
-public class NEstados {
+public class NAfnd {
+    String symbol;
+
+    public NAfnd(String symbol) {
+        this.symbol = symbol;
+    }
+    
     
 }

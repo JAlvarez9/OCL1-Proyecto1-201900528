@@ -19,7 +19,6 @@ public class TTransiciones {
 
     public String name;
     public LinkedList<NTrancisiones> estados;
-    ;
     public LinkedList<NSiguiente> nodes;
     public String[][] tablona;
     int cont = 1;
@@ -60,7 +59,7 @@ public class TTransiciones {
             }
         }
         Tablas();
-        System.out.println("holis");
+        //System.out.println("holis");
     }
 
     public void Recurson(LinkedList<String> sig) {
@@ -125,7 +124,7 @@ public class TTransiciones {
                             if (Arrays.equals(sup1, sup2)) {
                                 aux2 = this.estados.get(k).num;
                                 aux3 = this.estados.get(i).moves.toArray();
-                                System.out.println("asd");
+                                //System.out.println("asd");
                             }
                         }
                         RecorridoTablona(i, aux3, aux2);
@@ -215,7 +214,7 @@ public class TTransiciones {
         FileWriter fichero = null;
         PrintWriter escritor = null;
         try {
-            String name = "Transicion" + this.name + ".dot";
+            String name = "DOTS_201900528\\Transicion" + this.name + ".dot";
             fichero = new FileWriter(name);
             escritor = new PrintWriter(fichero);
             escritor.println(cadena);
@@ -230,10 +229,10 @@ public class TTransiciones {
 
     public void reportar() throws IOException {
 
-        String file_input_path = "Transicion" + this.name + ".dot";
+        String file_input_path = "DOTS_201900528\\Transicion" + this.name + ".dot";
         String do_path = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
 
-        String file_get_path = "Transicion" + this.name + ".jpg";
+        String file_get_path = "TRANCISIONES_201900528\\Transicion" + this.name + ".jpg";
         try {
             ProcessBuilder pBuilder;
             pBuilder = new ProcessBuilder(do_path, "-Tjpg", "-o", file_get_path, file_input_path);

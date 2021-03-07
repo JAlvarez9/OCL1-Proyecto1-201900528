@@ -97,7 +97,7 @@ public class Arbol {
         FileWriter fichero = null;
         PrintWriter escritor = null;
         try {
-            String name = this.id + ".dot";
+            String name = "DOTS_201900528\\"+this.id + ".dot";
             fichero = new FileWriter(name);
             escritor = new PrintWriter(fichero);
             escritor.println(cadena);
@@ -112,10 +112,10 @@ public class Arbol {
 
     public void reportar() throws IOException {
 
-        String file_input_path = this.id + ".dot";
+        String file_input_path = "DOTS_201900528\\"+this.id + ".dot";
         String do_path = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
 
-        String file_get_path = this.id + ".jpg";
+        String file_get_path = "ARBOLES_201900528\\"+this.id + ".jpg";
         try {
             ProcessBuilder pBuilder;
             pBuilder = new ProcessBuilder(do_path, "-Tjpg", "-o", file_get_path, file_input_path);
