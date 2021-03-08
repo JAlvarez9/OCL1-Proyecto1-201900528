@@ -380,7 +380,7 @@ public class Interface extends javax.swing.JFrame {
             Sintactico sintactico = new Sintactico(new Analizador_Lexico(new BufferedReader(new StringReader(jTextArea1.getText()))));
             sintactico.parse();
             generarReporteHTML();
-            System.out.println("Todo bien, todo correcto :)");
+            
 
             LinkedList<Object> enca = sintactico.enca;
             lista_val = sintactico.lista_valida;
@@ -395,7 +395,7 @@ public class Interface extends javax.swing.JFrame {
                 }
             }
             for (int i = 0; i < enca.size(); i++) {
-                System.out.println("Expresion " + i);
+                
                 Expresiones aux = new Expresiones(null, null, null);
 
                 try {

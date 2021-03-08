@@ -1,0 +1,11 @@
+digraph AFDdecimales{
+
+rankdir = "LR"; 
+S3[shape="doublecircle"]; 
+S0->S1[label = "digito"] 
+S1->S1[label = "digito"] 
+S1->S2[label = "."] 
+S2->S3[label = "digito"] 
+S3->S3[label = "digito"] 
+} 
+

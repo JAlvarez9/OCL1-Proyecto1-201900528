@@ -1,0 +1,12 @@
+[
+  {
+    "Expresion Regular": "decimales",
+    "Valor": "301.59",
+    "Resultado": false
+  },
+  {
+    "Expresion Regular": "decimales",
+    "Valor": "1200.31",
+    "Resultado": true
+  }
+]
