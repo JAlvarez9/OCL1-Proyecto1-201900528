@@ -15,13 +15,11 @@ import Objetos.Conjuntos;
 import Objetos.Encabezado;
 import Objetos.Imagenes;
 import Objetos.ListaCircular;
-import Objetos.NSiguiente;
 import Objetos.NTrancisiones;
 import Objetos.NodoImagenes;
 import Objetos.TSiguiente;
 import Objetos.TTransiciones;
 import Objetos.Validaciones;
-import java.awt.Desktop;
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,7 +36,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTree;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -54,14 +51,15 @@ public class Interface extends javax.swing.JFrame {
      */
     String path;
     public static ArrayList<ErroresS> listErrors = new ArrayList<ErroresS>();
-    public static LinkedList<Validaciones> lista_val = new LinkedList<Validaciones>();
+    public LinkedList<Validaciones> lista_val = new LinkedList<Validaciones>();
     public static ListaCircular afd = new ListaCircular();
     public static ListaCircular afnd = new ListaCircular();
     public static ListaCircular siguientes = new ListaCircular();
     public static ListaCircular transiciones = new ListaCircular();
     public static ListaCircular arboles = new ListaCircular();
     public static Encabezado encabezado = new Encabezado();
-    public static LinkedList<Conjuntos> conjunt = new  LinkedList<Conjuntos>();
+    public static LinkedList<Conjuntos> conjunt = new LinkedList<Conjuntos>();
+    public LinkedList<Expresiones> expre = new LinkedList<Expresiones>();
 
     DefaultMutableTreeNode grafi = new DefaultMutableTreeNode("Graficos");
     DefaultMutableTreeNode afdn = new DefaultMutableTreeNode("AFD");
@@ -135,6 +133,11 @@ public class Interface extends javax.swing.JFrame {
         });
 
         jButton2.setText("Analizar Entrada");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -217,23 +220,25 @@ public class Interface extends javax.swing.JFrame {
                         .addGap(67, 67, 67)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 31, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4)
+                                .addGap(114, 114, 114))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(86, 86, 86)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addGap(114, 114, 114))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(86, 86, 86)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1026, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 63, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,15 +259,15 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(39, 39, 39)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 173, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
@@ -380,13 +385,28 @@ public class Interface extends javax.swing.JFrame {
             LinkedList<Object> enca = sintactico.enca;
             lista_val = sintactico.lista_valida;
             for (int i = 0; i < enca.size(); i++) {
+                Conjuntos aux = new Conjuntos("", "", "");
+                try {
+                    aux = (Conjuntos) enca.get(i);
+                    if (aux != null && aux.type.equals("Conjunto")) {
+                        this.conjunt.add(aux);
+                    }
+                } catch (Exception e) {
+                }
+            }
+            for (int i = 0; i < enca.size(); i++) {
                 System.out.println("Expresion " + i);
                 Expresiones aux = new Expresiones(null, null, null);
-                Conjuntos auxc = new Conjuntos(null, null, null);
+
                 try {
                     aux = (Expresiones) enca.get(i);
-                    auxc = (Conjuntos)enca.get(i);
+
                     if (aux != null && aux.type == "Expresion") {
+                        LinkedList<Conjuntos> sera = new LinkedList<Conjuntos>();
+                        for (Conjuntos conjuntos : this.conjunt) {
+                            sera.add(conjuntos);
+                        }
+                        aux.setCinjuntos(sera);
                         aux.getArbol().GraficarSintactico();
                         ImageIcon a = new ImageIcon("ARBOLES_201900528\\" + aux.id + ".jpg");
                         Imagenes sup = new Imagenes(aux.id, "ARBOLES_201900528\\" + aux.id + ".jpg");
@@ -422,23 +442,29 @@ public class Interface extends javax.swing.JFrame {
                         DefaultMutableTreeNode support3 = new DefaultMutableTreeNode(aux.id);
                         DefaultMutableTreeNode support4 = new DefaultMutableTreeNode(aux.id);
                         DefaultMutableTreeNode support5 = new DefaultMutableTreeNode(aux.id);
+                        aux.CreacionEstados();
                         this.arbolesn.add(support);
                         this.afdn.add(support2);
                         this.siguientesn.add(support3);
                         this.afndn.add(support4);
                         this.trancisionesn.add(support5);
-
                         this.root.reload();
+                        aux.CompletacionConj();
+                        for (Validaciones valida : lista_val) {
+                            if (valida.id.equals(aux.id)) {
+                                aux.list_valida.add(valida);
+                            }
 
-                    }else if (auxc != null && aux.type == "Conjunto"){
-                        this.conjunt.add(auxc);
-                    
+                        }
+                        aux.Validacion();
+                        this.expre.add(aux);
+                        aux.CrearJson();
                     }
                 } catch (Exception e) {
                 }
 
             }
-            //System.out.println("Hola :)");
+
 
         } catch (Exception ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
@@ -519,6 +545,13 @@ public class Interface extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        for (Expresiones e : expre) {
+            jTextArea2.append(e.ColocarValidaciones());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

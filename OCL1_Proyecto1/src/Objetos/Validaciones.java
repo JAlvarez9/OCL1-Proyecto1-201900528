@@ -4,18 +4,27 @@
  * and open the template in the editor.
  */
 package Objetos;
+import com.google.gson.annotations.SerializedName;
 
 /**
  *
  * @author feral
  */
 public class Validaciones {
-    String id;
-    String cadena;
+    @SerializedName("Expresion Regular")
+    public String id;
+    @SerializedName("Valor")
+    public String cadena;
+    @SerializedName("Resultado")
+    public boolean aceptada;
 
     public Validaciones(String id, String cadena) {
         this.id = id;
-        this.cadena = cadena;
+        this.aceptada = false;
+        if (cadena.contains("\\")) {
+            cadena = cadena.replace("\\", "");
+        }
+        this.cadena = cadena.replace("\"", "");
     }
     
     
